@@ -24,6 +24,8 @@ public partial class IndexForm : Form
 
         wordTimer.Interval = 1000; // 1 second
         wordTimer.Tick += wordTimer_Tick;
+
+        ApplyTheme(false); // Start in light mode
     }
 
     private void IndexForm_Load(object sender, EventArgs e)
@@ -48,6 +50,7 @@ public partial class IndexForm : Form
             buttonCheck.Enabled = false;
             buttonSkip.Enabled = false;
             buttonHint.Enabled = false;
+            wordTimer.Stop();
             return;
         }
 
@@ -115,7 +118,7 @@ public partial class IndexForm : Form
         if (timeLeft <= 0)
         {
             wordTimer.Stop();
-            currentStreak = 0; // Time out breaks the streak
+            currentStreak = 0; // Time out breaks streak
 
             MessageBox.Show($"Time is up! The correct word was: {currentWord}", "Time up");
 
@@ -180,7 +183,7 @@ public partial class IndexForm : Form
     private void SuccessfulAttempt()
     {
         guessedWords++;
-        currentStreak++; // Increase streak after correct answer
+        currentStreak++; // Add to streak
         score += 10;
 
         wordList.Remove(currentWord);
@@ -193,7 +196,7 @@ public partial class IndexForm : Form
     private void UnsuccessfulAttempt(string input)
     {
         attempts++;
-        currentStreak = 0; // Wrong answer breaks the streak
+        currentStreak = 0; // Wrong answer breaks streak
         score -= 2;
 
         failedAttempts.Add(input);
@@ -219,7 +222,7 @@ public partial class IndexForm : Form
 
     private void buttonSkip_Click(object sender, EventArgs e)
     {
-        currentStreak = 0; // Skipping breaks the streak
+        currentStreak = 0; // Skipping breaks streak
 
         GenerateNewWord();
         UpdateLabels();
@@ -243,7 +246,7 @@ public partial class IndexForm : Form
         }
 
         hintsUsed++;
-        score -= 5; // Each hint costs 5 points
+        score -= 5; // Hint costs 5 points
 
         UpdateScrambledWordLabel();
         labelScoreValue.Text = score.ToString();
@@ -284,5 +287,76 @@ public partial class IndexForm : Form
         }
 
         return string.Join(" ", letters);
+    }
+
+    private void checkBoxDarkMode_CheckedChanged(object sender, EventArgs e)
+    {
+        ApplyTheme(checkBoxDarkMode.Checked);
+    }
+
+    private void ApplyTheme(bool darkMode)
+    {
+        Color backgroundColor = darkMode ? Color.FromArgb(28, 28, 28) : Color.FromArgb(248, 248, 255);
+        Color textColor = darkMode ? Color.White : Color.Black;
+        Color textBoxColor = darkMode ? Color.FromArgb(42, 42, 42) : Color.White;
+        Color failedBoxColor = darkMode ? Color.FromArgb(42, 42, 42) : Color.FromArgb(235, 235, 235);
+        Color buttonColor = darkMode ? Color.FromArgb(0, 90, 90) : Color.Teal;
+        Color modeButtonColor = darkMode ? Color.FromArgb(55, 65, 65) : Color.FromArgb(0, 105, 105);
+        Color modeButtonBorder = darkMode ? Color.FromArgb(90, 130, 130) : Color.FromArgb(0, 80, 80);
+
+        BackColor = backgroundColor;
+
+        // Normal labels
+        labelTitle.ForeColor = textColor;
+        labelAttempts.ForeColor = textColor;
+        labelGuessedWords.ForeColor = textColor;
+        labelStreak.ForeColor = textColor;
+        labelScore.ForeColor = textColor;
+        labelTimer.ForeColor = textColor;
+        labelScrambledWord.ForeColor = textColor;
+        labelFailedAttempts.ForeColor = textColor;
+
+        // Dark mode button
+        checkBoxDarkMode.Text = darkMode ? "Light Mode" : "Dark Mode";
+        checkBoxDarkMode.ForeColor = Color.White;
+        checkBoxDarkMode.BackColor = modeButtonColor;
+        checkBoxDarkMode.FlatAppearance.BorderColor = modeButtonBorder;
+        checkBoxDarkMode.FlatAppearance.BorderSize = 2;
+        checkBoxDarkMode.FlatAppearance.CheckedBackColor = modeButtonColor;
+        checkBoxDarkMode.FlatAppearance.MouseOverBackColor = Color.FromArgb(65, 75, 75);
+        checkBoxDarkMode.FlatAppearance.MouseDownBackColor = Color.FromArgb(45, 55, 55);
+
+        // Value labels
+        StyleValueLabel(labelAttemptsCount, buttonColor);
+        StyleValueLabel(labelGuessedWordsValue, buttonColor);
+        StyleValueLabel(labelStreakValue, buttonColor);
+        StyleValueLabel(labelScoreValue, buttonColor);
+        StyleValueLabel(labelTimerValue, buttonColor);
+
+        // Text boxes
+        textBoxInput.BackColor = textBoxColor;
+        textBoxInput.ForeColor = textColor;
+
+        textBoxFailedAttempts.BackColor = failedBoxColor;
+        textBoxFailedAttempts.ForeColor = textColor;
+
+        // Buttons
+        StyleButton(buttonCheck, buttonColor);
+        StyleButton(buttonSkip, buttonColor);
+        StyleButton(buttonHint, buttonColor);
+    }
+
+    private void StyleValueLabel(Label label, Color backColor)
+    {
+        label.BackColor = backColor;
+        label.ForeColor = Color.White;
+    }
+
+    private void StyleButton(Button button, Color backColor)
+    {
+        button.BackColor = backColor;
+        button.ForeColor = Color.White;
+        button.FlatAppearance.BorderColor = Color.White;
+        button.FlatAppearance.BorderSize = 1;
     }
 }
