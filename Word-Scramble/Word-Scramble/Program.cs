@@ -1,5 +1,3 @@
-using Word_Scramble;
-
 namespace WordScramble;
 
 internal static class Program
