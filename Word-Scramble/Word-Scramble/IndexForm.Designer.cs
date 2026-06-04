@@ -9,6 +9,8 @@ partial class IndexForm
     private Label labelAttemptsCount;
     private Label labelGuessedWords;
     private Label labelGuessedWordsValue;
+    private Label labelStreak;
+    private Label labelStreakValue;
     private Label labelScore;
     private Label labelScoreValue;
     private Label labelScrambledWord;
@@ -36,6 +38,8 @@ partial class IndexForm
         labelAttemptsCount = new Label();
         labelGuessedWords = new Label();
         labelGuessedWordsValue = new Label();
+        labelStreak = new Label();
+        labelStreakValue = new Label();
         labelScore = new Label();
         labelScoreValue = new Label();
         labelScrambledWord = new Label();
@@ -60,7 +64,7 @@ partial class IndexForm
         // labelAttempts
         labelAttempts.AutoSize = true;
         labelAttempts.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-        labelAttempts.Location = new Point(55, 100);
+        labelAttempts.Location = new Point(25, 100);
         labelAttempts.Name = "labelAttempts";
         labelAttempts.Size = new Size(76, 20);
         labelAttempts.TabIndex = 1;
@@ -71,7 +75,7 @@ partial class IndexForm
         labelAttemptsCount.BackColor = Color.Teal;
         labelAttemptsCount.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
         labelAttemptsCount.ForeColor = Color.White;
-        labelAttemptsCount.Location = new Point(137, 100);
+        labelAttemptsCount.Location = new Point(107, 100);
         labelAttemptsCount.MinimumSize = new Size(28, 24);
         labelAttemptsCount.Name = "labelAttemptsCount";
         labelAttemptsCount.Size = new Size(28, 24);
@@ -82,7 +86,7 @@ partial class IndexForm
         // labelGuessedWords
         labelGuessedWords.AutoSize = true;
         labelGuessedWords.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-        labelGuessedWords.Location = new Point(220, 100);
+        labelGuessedWords.Location = new Point(155, 100);
         labelGuessedWords.Name = "labelGuessedWords";
         labelGuessedWords.Size = new Size(119, 20);
         labelGuessedWords.TabIndex = 3;
@@ -93,7 +97,7 @@ partial class IndexForm
         labelGuessedWordsValue.BackColor = Color.Teal;
         labelGuessedWordsValue.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
         labelGuessedWordsValue.ForeColor = Color.White;
-        labelGuessedWordsValue.Location = new Point(345, 100);
+        labelGuessedWordsValue.Location = new Point(280, 100);
         labelGuessedWordsValue.MinimumSize = new Size(28, 24);
         labelGuessedWordsValue.Name = "labelGuessedWordsValue";
         labelGuessedWordsValue.Size = new Size(28, 24);
@@ -101,13 +105,35 @@ partial class IndexForm
         labelGuessedWordsValue.Text = "0";
         labelGuessedWordsValue.TextAlign = ContentAlignment.MiddleCenter;
 
+        // labelStreak
+        labelStreak.AutoSize = true;
+        labelStreak.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+        labelStreak.Location = new Point(325, 100);
+        labelStreak.Name = "labelStreak";
+        labelStreak.Size = new Size(57, 20);
+        labelStreak.TabIndex = 5;
+        labelStreak.Text = "Streak:";
+
+        // labelStreakValue
+        labelStreakValue.AutoSize = true;
+        labelStreakValue.BackColor = Color.Teal;
+        labelStreakValue.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+        labelStreakValue.ForeColor = Color.White;
+        labelStreakValue.Location = new Point(385, 100);
+        labelStreakValue.MinimumSize = new Size(28, 24);
+        labelStreakValue.Name = "labelStreakValue";
+        labelStreakValue.Size = new Size(28, 24);
+        labelStreakValue.TabIndex = 6;
+        labelStreakValue.Text = "0";
+        labelStreakValue.TextAlign = ContentAlignment.MiddleCenter;
+
         // labelScore
         labelScore.AutoSize = true;
         labelScore.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-        labelScore.Location = new Point(410, 100);
+        labelScore.Location = new Point(425, 100);
         labelScore.Name = "labelScore";
         labelScore.Size = new Size(51, 20);
-        labelScore.TabIndex = 5;
+        labelScore.TabIndex = 7;
         labelScore.Text = "Score:";
 
         // labelScoreValue
@@ -115,11 +141,11 @@ partial class IndexForm
         labelScoreValue.BackColor = Color.Teal;
         labelScoreValue.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
         labelScoreValue.ForeColor = Color.White;
-        labelScoreValue.Location = new Point(467, 100);
+        labelScoreValue.Location = new Point(482, 100);
         labelScoreValue.MinimumSize = new Size(35, 24);
         labelScoreValue.Name = "labelScoreValue";
         labelScoreValue.Size = new Size(35, 24);
-        labelScoreValue.TabIndex = 6;
+        labelScoreValue.TabIndex = 8;
         labelScoreValue.Text = "0";
         labelScoreValue.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -129,7 +155,7 @@ partial class IndexForm
         labelScrambledWord.Location = new Point(70, 125);
         labelScrambledWord.Name = "labelScrambledWord";
         labelScrambledWord.Size = new Size(420, 80);
-        labelScrambledWord.TabIndex = 7;
+        labelScrambledWord.TabIndex = 9;
         labelScrambledWord.Text = "scrambled word";
         labelScrambledWord.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -138,7 +164,7 @@ partial class IndexForm
         textBoxInput.Location = new Point(66, 214);
         textBoxInput.Name = "textBoxInput";
         textBoxInput.Size = new Size(155, 29);
-        textBoxInput.TabIndex = 1;
+        textBoxInput.TabIndex = 10;
 
         // buttonCheck
         buttonCheck.BackColor = Color.Teal;
@@ -148,7 +174,7 @@ partial class IndexForm
         buttonCheck.Location = new Point(232, 213);
         buttonCheck.Name = "buttonCheck";
         buttonCheck.Size = new Size(85, 31);
-        buttonCheck.TabIndex = 2;
+        buttonCheck.TabIndex = 11;
         buttonCheck.Text = "Check";
         buttonCheck.UseVisualStyleBackColor = false;
         buttonCheck.Click += buttonCheck_Click;
@@ -161,7 +187,7 @@ partial class IndexForm
         buttonSkip.Location = new Point(326, 213);
         buttonSkip.Name = "buttonSkip";
         buttonSkip.Size = new Size(75, 31);
-        buttonSkip.TabIndex = 3;
+        buttonSkip.TabIndex = 12;
         buttonSkip.Text = "Skip";
         buttonSkip.UseVisualStyleBackColor = false;
         buttonSkip.Click += buttonSkip_Click;
@@ -174,7 +200,7 @@ partial class IndexForm
         buttonHint.Location = new Point(410, 213);
         buttonHint.Name = "buttonHint";
         buttonHint.Size = new Size(75, 31);
-        buttonHint.TabIndex = 4;
+        buttonHint.TabIndex = 13;
         buttonHint.Text = "Hint";
         buttonHint.UseVisualStyleBackColor = false;
         buttonHint.Click += buttonHint_Click;
@@ -186,7 +212,7 @@ partial class IndexForm
         labelFailedAttempts.Location = new Point(205, 273);
         labelFailedAttempts.Name = "labelFailedAttempts";
         labelFailedAttempts.Size = new Size(133, 21);
-        labelFailedAttempts.TabIndex = 12;
+        labelFailedAttempts.TabIndex = 14;
         labelFailedAttempts.Text = "Failed attempts:";
 
         // textBoxFailedAttempts
@@ -198,7 +224,7 @@ partial class IndexForm
         textBoxFailedAttempts.ReadOnly = true;
         textBoxFailedAttempts.ScrollBars = ScrollBars.Vertical;
         textBoxFailedAttempts.Size = new Size(419, 105);
-        textBoxFailedAttempts.TabIndex = 5;
+        textBoxFailedAttempts.TabIndex = 15;
 
         // IndexForm
         AcceptButton = buttonCheck;
@@ -215,6 +241,8 @@ partial class IndexForm
         Controls.Add(labelScrambledWord);
         Controls.Add(labelScoreValue);
         Controls.Add(labelScore);
+        Controls.Add(labelStreakValue);
+        Controls.Add(labelStreak);
         Controls.Add(labelGuessedWordsValue);
         Controls.Add(labelGuessedWords);
         Controls.Add(labelAttemptsCount);

@@ -10,6 +10,7 @@ public partial class IndexForm : Form
     private int guessedWords = 0;
     private int score = 0;
     private int hintsUsed = 0;
+    private int currentStreak = 0; // Correct answers in a row
 
     private string currentWord = string.Empty;
     private string currentScrambledWord = string.Empty;
@@ -143,7 +144,9 @@ public partial class IndexForm : Form
     private void SuccessfulAttempt()
     {
         guessedWords++;
+        currentStreak++; // Increase streak after correct answer
         score += 10;
+
         wordList.Remove(currentWord);
 
         MessageBox.Show("Correct answer! Good job!", "Success");
@@ -154,7 +157,9 @@ public partial class IndexForm : Form
     private void UnsuccessfulAttempt(string input)
     {
         attempts++;
+        currentStreak = 0; // Wrong answer breaks the streak
         score -= 2;
+
         failedAttempts.Add(input);
 
         if (attempts > 9)
@@ -169,6 +174,7 @@ public partial class IndexForm : Form
         labelAttemptsCount.Text = attempts.ToString();
         labelGuessedWordsValue.Text = guessedWords.ToString();
         labelScoreValue.Text = score.ToString();
+        labelStreakValue.Text = currentStreak.ToString();
 
         textBoxFailedAttempts.Text = string.Join(Environment.NewLine, failedAttempts);
         textBoxInput.Clear();
@@ -176,6 +182,8 @@ public partial class IndexForm : Form
 
     private void buttonSkip_Click(object sender, EventArgs e)
     {
+        currentStreak = 0; // Skipping breaks the streak
+
         GenerateNewWord();
         UpdateLabels();
         textBoxInput.Focus();
@@ -198,7 +206,7 @@ public partial class IndexForm : Form
         }
 
         hintsUsed++;
-        score -= 5;
+        score -= 5; // Each hint costs 5 points
 
         UpdateScrambledWordLabel();
         labelScoreValue.Text = score.ToString();
