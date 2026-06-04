@@ -55,7 +55,3 @@ The player can switch between light mode and dark mode using the **Dark Mode** b
 * C#
 * Windows Forms
 * .NET
-
-## Author
-
-Created by Kosio.
