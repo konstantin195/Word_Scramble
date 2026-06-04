@@ -6,11 +6,14 @@ public partial class IndexForm : Form
     private readonly List<string> wordList = new();
     private readonly List<string> failedAttempts = new();
 
+    private const int TimePerWord = 30; // Seconds for each word
+
     private int attempts = 0;
     private int guessedWords = 0;
     private int score = 0;
     private int hintsUsed = 0;
     private int currentStreak = 0; // Correct answers in a row
+    private int timeLeft = TimePerWord;
 
     private string currentWord = string.Empty;
     private string currentScrambledWord = string.Empty;
@@ -18,6 +21,9 @@ public partial class IndexForm : Form
     public IndexForm()
     {
         InitializeComponent();
+
+        wordTimer.Interval = 1000; // 1 second
+        wordTimer.Tick += wordTimer_Tick;
     }
 
     private void IndexForm_Load(object sender, EventArgs e)
@@ -62,6 +68,8 @@ public partial class IndexForm : Form
     {
         if (wordList.Count == 0)
         {
+            wordTimer.Stop();
+
             labelScrambledWord.Text = "No words left!";
             textBoxInput.Enabled = false;
             buttonCheck.Enabled = false;
@@ -87,6 +95,34 @@ public partial class IndexForm : Form
 
         currentScrambledWord = ScrambleWord(currentWord);
         UpdateScrambledWordLabel();
+        ResetTimer();
+    }
+
+    private void ResetTimer()
+    {
+        timeLeft = TimePerWord;
+        labelTimerValue.Text = timeLeft.ToString();
+
+        wordTimer.Stop();
+        wordTimer.Start();
+    }
+
+    private void wordTimer_Tick(object sender, EventArgs e)
+    {
+        timeLeft--;
+        labelTimerValue.Text = timeLeft.ToString();
+
+        if (timeLeft <= 0)
+        {
+            wordTimer.Stop();
+            currentStreak = 0; // Time out breaks the streak
+
+            MessageBox.Show($"Time is up! The correct word was: {currentWord}", "Time up");
+
+            GenerateNewWord();
+            UpdateLabels();
+            textBoxInput.Focus();
+        }
     }
 
     private string ScrambleWord(string word)
@@ -175,6 +211,7 @@ public partial class IndexForm : Form
         labelGuessedWordsValue.Text = guessedWords.ToString();
         labelScoreValue.Text = score.ToString();
         labelStreakValue.Text = currentStreak.ToString();
+        labelTimerValue.Text = timeLeft.ToString();
 
         textBoxFailedAttempts.Text = string.Join(Environment.NewLine, failedAttempts);
         textBoxInput.Clear();
