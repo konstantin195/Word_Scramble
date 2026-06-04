@@ -2,12 +2,15 @@ namespace WordScramble;
 
 public partial class IndexForm : Form
 {
+    // ===================== Lists And Random =====================
     private readonly Random random = new();
     private readonly List<string> wordList = new();
     private readonly List<string> failedAttempts = new();
 
+    // ===================== Game Settings =====================
     private const int TimePerWord = 30; // Seconds for each word
 
+    // ===================== Game Stats =====================
     private int attempts = 0;
     private int guessedWords = 0;
     private int score = 0;
@@ -15,6 +18,7 @@ public partial class IndexForm : Form
     private int currentStreak = 0; // Correct answers in a row
     private int timeLeft = TimePerWord;
 
+    // ===================== Current Word Info =====================
     private string currentWord = string.Empty;
     private string currentScrambledWord = string.Empty;
 
@@ -22,12 +26,15 @@ public partial class IndexForm : Form
     {
         InitializeComponent();
 
-        wordTimer.Interval = 1000; // 1 second
+        // Timer ticks every 1 second
+        wordTimer.Interval = 1000;
         wordTimer.Tick += wordTimer_Tick;
 
-        ApplyTheme(false); // Start in light mode
+        // Start in light mode
+        ApplyTheme(false);
     }
 
+    // ===================== Form Load =====================
     private void IndexForm_Load(object sender, EventArgs e)
     {
         GetAllWords();
@@ -35,6 +42,7 @@ public partial class IndexForm : Form
         UpdateLabels();
     }
 
+    // ===================== Load Words =====================
     private void GetAllWords()
     {
         string wordsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "words.txt");
@@ -67,6 +75,7 @@ public partial class IndexForm : Form
         }
     }
 
+    // ===================== New Word =====================
     private void GenerateNewWord()
     {
         if (wordList.Count == 0)
@@ -101,6 +110,7 @@ public partial class IndexForm : Form
         ResetTimer();
     }
 
+    // ===================== Timer =====================
     private void ResetTimer()
     {
         timeLeft = TimePerWord;
@@ -128,6 +138,7 @@ public partial class IndexForm : Form
         }
     }
 
+    // ===================== Scramble Word =====================
     private string ScrambleWord(string word)
     {
         if (word.Length <= 1)
@@ -153,6 +164,7 @@ public partial class IndexForm : Form
         return scrambledWord;
     }
 
+    // ===================== Check Button =====================
     private void buttonCheck_Click(object sender, EventArgs e)
     {
         CheckTheWord();
@@ -180,6 +192,7 @@ public partial class IndexForm : Form
         }
     }
 
+    // ===================== Correct Answer =====================
     private void SuccessfulAttempt()
     {
         guessedWords++;
@@ -193,6 +206,7 @@ public partial class IndexForm : Form
         GenerateNewWord();
     }
 
+    // ===================== Wrong Answer =====================
     private void UnsuccessfulAttempt(string input)
     {
         attempts++;
@@ -208,6 +222,7 @@ public partial class IndexForm : Form
         }
     }
 
+    // ===================== Update Labels =====================
     private void UpdateLabels()
     {
         labelAttemptsCount.Text = attempts.ToString();
@@ -220,6 +235,7 @@ public partial class IndexForm : Form
         textBoxInput.Clear();
     }
 
+    // ===================== Skip Button =====================
     private void buttonSkip_Click(object sender, EventArgs e)
     {
         currentStreak = 0; // Skipping breaks streak
@@ -229,6 +245,7 @@ public partial class IndexForm : Form
         textBoxInput.Focus();
     }
 
+    // ===================== Hint Button =====================
     private void buttonHint_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(currentWord))
@@ -259,6 +276,7 @@ public partial class IndexForm : Form
         textBoxInput.Focus();
     }
 
+    // ===================== Hint Display =====================
     private void UpdateScrambledWordLabel()
     {
         if (hintsUsed == 0)
@@ -289,11 +307,13 @@ public partial class IndexForm : Form
         return string.Join(" ", letters);
     }
 
+    // ===================== Dark Mode Button =====================
     private void checkBoxDarkMode_CheckedChanged(object sender, EventArgs e)
     {
         ApplyTheme(checkBoxDarkMode.Checked);
     }
 
+    // ===================== Theme System =====================
     private void ApplyTheme(bool darkMode)
     {
         Color backgroundColor = darkMode ? Color.FromArgb(28, 28, 28) : Color.FromArgb(248, 248, 255);
@@ -346,6 +366,7 @@ public partial class IndexForm : Form
         StyleButton(buttonHint, buttonColor);
     }
 
+    // ===================== Style Helpers =====================
     private void StyleValueLabel(Label label, Color backColor)
     {
         label.BackColor = backColor;
