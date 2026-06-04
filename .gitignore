@@ -1,0 +1,31 @@
+# Visual Studio temporary files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# .NET generated files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# NuGet packages
+packages/
+*.nupkg
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Windows / macOS files
+Thumbs.db
+.DS_Store
