@@ -10,7 +10,9 @@ public partial class IndexForm : Form
     private int guessedWords = 0;
     private int score = 0;
     private int hintsUsed = 0;
+
     private string currentWord = string.Empty;
+    private string currentScrambledWord = string.Empty;
 
     public IndexForm()
     {
@@ -79,7 +81,11 @@ public partial class IndexForm : Form
         hintsUsed = 0;
         failedAttempts.Clear();
         textBoxInput.Clear();
-        labelScrambledWord.Text = ScrambleWord(currentWord);
+
+        buttonHint.Enabled = true;
+
+        currentScrambledWord = ScrambleWord(currentWord);
+        UpdateScrambledWordLabel();
     }
 
     private string ScrambleWord(string word)
@@ -137,7 +143,7 @@ public partial class IndexForm : Form
     private void SuccessfulAttempt()
     {
         guessedWords++;
-        score += currentWord.Length * 10;
+        score += 10;
         wordList.Remove(currentWord);
 
         MessageBox.Show("Correct answer! Good job!", "Success");
@@ -148,7 +154,7 @@ public partial class IndexForm : Form
     private void UnsuccessfulAttempt(string input)
     {
         attempts++;
-        score = Math.Max(0, score - 2);
+        score -= 2;
         failedAttempts.Add(input);
 
         if (attempts > 9)
@@ -184,17 +190,54 @@ public partial class IndexForm : Form
 
         int maxHints = Math.Min(2, currentWord.Length);
 
-        if (hintsUsed < maxHints)
+        if (hintsUsed >= maxHints)
         {
-            hintsUsed++;
-            score = Math.Max(0, score - 5);
+            MessageBox.Show("You already used all hints for this word.", "No hints left");
+            textBoxInput.Focus();
+            return;
         }
 
-        string shownLetters = currentWord.Substring(0, hintsUsed);
+        hintsUsed++;
+        score -= 5;
 
-        MessageBox.Show($"Hint: the word starts with '{shownLetters}'.", "Hint");
-
+        UpdateScrambledWordLabel();
         labelScoreValue.Text = score.ToString();
+
+        if (hintsUsed >= maxHints)
+        {
+            buttonHint.Enabled = false;
+        }
+
         textBoxInput.Focus();
+    }
+
+    private void UpdateScrambledWordLabel()
+    {
+        if (hintsUsed == 0)
+        {
+            labelScrambledWord.Text = currentScrambledWord;
+            return;
+        }
+
+        labelScrambledWord.Text = $"{currentScrambledWord}{Environment.NewLine}Hint: {GetHintText()}";
+    }
+
+    private string GetHintText()
+    {
+        List<string> letters = new();
+
+        for (int i = 0; i < currentWord.Length; i++)
+        {
+            if (i < hintsUsed)
+            {
+                letters.Add(currentWord[i].ToString());
+            }
+            else
+            {
+                letters.Add("_");
+            }
+        }
+
+        return string.Join(" ", letters);
     }
 }

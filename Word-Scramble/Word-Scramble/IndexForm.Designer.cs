@@ -126,9 +126,9 @@ partial class IndexForm
         // labelScrambledWord
         labelScrambledWord.Anchor = AnchorStyles.Top;
         labelScrambledWord.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-        labelScrambledWord.Location = new Point(70, 150);
+        labelScrambledWord.Location = new Point(70, 125);
         labelScrambledWord.Name = "labelScrambledWord";
-        labelScrambledWord.Size = new Size(420, 45);
+        labelScrambledWord.Size = new Size(420, 80);
         labelScrambledWord.TabIndex = 7;
         labelScrambledWord.Text = "scrambled word";
         labelScrambledWord.TextAlign = ContentAlignment.MiddleCenter;
