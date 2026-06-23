@@ -19,9 +19,9 @@ The player has to type the correct word and press **Check**.
 
 ## Scoring System
 
-* Correct answer: +10 points
-* Wrong answer: -2 points
-* Hint used: -5 points
+* Correct answer: +5 points
+* Wrong answer: 0 points
+* Hint used: 0 points
 
 ## Hint System
 
