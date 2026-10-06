@@ -120,7 +120,7 @@ public partial class IndexForm : Form
         wordTimer.Start();
     }
 
-    private void wordTimer_Tick(object sender, EventArgs e)
+    private void wordTimer_Tick(object? sender, EventArgs e)
     {
         timeLeft--;
         labelTimerValue.Text = timeLeft.ToString();
@@ -200,6 +200,8 @@ public partial class IndexForm : Form
     // ===================== Correct Answer =====================
     private void SuccessfulAttempt()
     {
+        wordTimer.Stop();
+
         guessedWords++;
 
         int pointsEarned = GetPointsForCorrectAnswer();
@@ -236,6 +238,8 @@ public partial class IndexForm : Form
 
         if (attempts > 9)
         {
+            wordTimer.Stop();
+
             MessageBox.Show(
                 $"Too many failed attempts. The correct word was: {currentWord}",
                 "New word",
@@ -263,6 +267,8 @@ public partial class IndexForm : Form
     // ===================== Skip Button =====================
     private void buttonSkip_Click(object sender, EventArgs e)
     {
+        wordTimer.Stop();
+
         MessageBox.Show(
             $"Skipped. The correct word was: {currentWord}",
             "Skipped word",
