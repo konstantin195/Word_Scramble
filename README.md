@@ -2,13 +2,17 @@
 
 Word Scramble is a simple C# Windows Forms game where the player has to guess the correct word from scrambled letters.
 
+## Preview
+
+![Word Scramble game](https://github.com/user-attachments/assets/6ececdae-12bf-41f4-8c2c-86b70db69c8e)
+
 ## Features
 
 * Random scrambled words
 * Score system
 * Hint system
-* Streak counter
-* 30-second timer for each word
+* Guessed words counter
+* 45-second timer for each word
 * Failed attempts list
 * Dark mode / light mode option
 
@@ -19,9 +23,10 @@ The player has to type the correct word and press **Check**.
 
 ## Scoring System
 
-* Correct answer: +5 points
+* Correct answer without hints: +15 points
+* Correct answer with 1 hint: +10 points
+* Correct answer with 2 hints: +5 points
 * Wrong answer: 0 points
-* Hint used: 0 points
 
 ## Hint System
 
@@ -29,22 +34,16 @@ The player can use up to 2 hints for each word.
 
 * First hint shows the first letter
 * Second hint shows the second letter
-* Each hint removes 5 points
+* Each hint reduces the reward for the current word by 5 points; it does not subtract from the accumulated score
 
 ## Timer
 
-Each word has a 30-second timer.
+Each word has a 45-second timer.
 If the timer reaches 0, the game shows the correct word and moves to a new word.
 
-## Streak Counter
+## Guessed Words Counter
 
-The streak counter shows how many correct answers the player gets in a row.
-
-The streak resets when:
-
-* The player guesses wrong
-* The player skips the word
-* The timer runs out
+The **Guessed words** counter shows the total number of correct answers in the current game. It does not reset after a wrong answer, a skipped word, or a timeout.
 
 ## Dark Mode
 
